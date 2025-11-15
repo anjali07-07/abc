@@ -1,0 +1,192 @@
+C:\Users\CDAC\Downloads\DataStructure(Anjali)
+--------------------------------------
+package com.testNG.abc;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.AfterTest;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.AfterSuite;
+
+public class NewTest {
+	 WebDriver sd= new ChromeDriver();
+	
+  @Test
+  public void f() throws InterruptedException {
+	  Thread.sleep(1000);
+	  WebElement a1 = sd.findElement(By.name("username"));
+		 WebElement a2= sd.findElement(By.name("password"));
+		 WebElement a3 = sd.findElement(By.xpath("//button[@class=\"oxd-button oxd-button--medium oxd-button--main orangehrm-login-button\"] "));
+		 a1.click();
+		 a1.sendKeys("Admin");
+		 a2.click();
+		 a2.sendKeys("admin123");
+		 a3.click();
+  }
+  @BeforeTest
+  public void beforeTest() {
+	  //WebDriver sd= new ChromeDriver();
+	  sd.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
+  }
+
+  @AfterTest
+  public void afterTest() {
+	  sd.close();
+	 
+  }
+}
+-----------------------------------
+priority
+ package com.testNG.abc;
+
+import org.testng.annotations.Test;
+
+public class NewTest2 {
+  @Test(priority = 1)
+  public void login() {
+	  System.out.println("i am in login testcase");
+  }
+  @Test(priority = 2)
+  public void reg() {
+	  System.out.println("i am in reg testcase");
+  }
+  @Test(priority ='a')
+  public void home() {
+	  System.out.println("i am in home testcase");
+  }
+  @Test(priority = 4)
+  public void logout() {
+	  System.out.println("i am in logout testcase");
+  }
+  
+}
+o/p=[RemoteTestNG] detected TestNG version 7.4.0
+i am in login testcase
+i am in reg testcase
+i am in logout testcase
+i am in home testcase
+PASSED: reg
+PASSED: login
+PASSED: logout
+PASSED: home
+-----------
+one not want run
+ @Test(priority = 4,enabled =false)
+  public void logout() {
+	  System.out.println("i am in logout testcase");
+  }
+  ----------
+<?xml version="1.0" encoding="UTF-8"?>
+<suite parallel="false" name="Suite">
+  <test name="Test">
+    <classes>
+      <class name="com.testNG.abc.NewTest3"/>
+       <class name="com.testNG.abc.NewTest2"/>
+        <class name="com.testNG.abc.NewTest"/>
+        
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->
+-----------------
+package com.testNG.abc;
+
+import org.testng.SkipException;
+import org.testng.annotations.Test;
+
+public class NewTest2 {
+  @Test(priority = 1)
+  public void login() {
+	  System.out.println("i am in login testcase");
+  }
+  @Test(priority = 2)
+  public void reg() {
+	  System.out.println("i am in reg testcase");
+  }
+  @Test(priority ='a')
+  public void home() {
+	  System.out.println("i am in home testcase");
+  }
+  @Test(priority = 4)
+  public void logout() {
+	  throw new SkipException("we are working");
+	  //System.out.println("i am in logout testcase");
+  }
+  
+}
+---------------------
+package com.testNG.abc1;
+
+import org.testng.annotations.Test;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterTest;
+
+public class NewTest3 {
+	 WebDriver sd= new ChromeDriver();
+  @Test
+  
+  public void f() throws InterruptedException {
+	  Thread.sleep(1000);
+	  WebElement a1= sd.findElement(By.id("username"));
+	  
+	  WebElement a2= sd.findElement(By.id("password"));
+	  
+	  WebElement a3=sd.findElement(By.id("submit-login"));
+	  a1.click();
+	  a1.sendKeys("practice");
+	  a2.click();
+	  a2.sendKeys("SuperSecretPassword!");
+	  a3.click();
+  }
+  @BeforeTest
+  public void beforeTest() throws InterruptedException {
+	  
+	  sd.get("https://practice.expandtesting.com/login");
+	  
+  }
+
+  @AfterTest
+  public void afterTest() {
+  }
+
+}
+================
+xml file
+ <class name="com.testNG.abc1.NewTest3"/>
+      <parameter name="username" value="practice"/>
+       <parameter name="password" value="SuperSecretPassword!"/>
+     -------------
+ackage com.testNG.abc1;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+public class JavaScriptExecuter {
+  @Test
+  public void f() throws InterruptedException {
+	  WebDriver sd= new ChromeDriver();
+	  Thread.sleep(2000);
+	  JavascriptExecutor as=(JavascriptExecutor)sd;
+	  //as.executeScript("window.scrollBy(0,1000)");
+	  sd.get("https://practicetestautomation.com/practice-test-login/");
+	  WebElement a1=sd.findElement(By.xpath("//a[@href='https://practicetestautomation.com/privacy-policy/']"));
+	  as.executeAsyncScript("arguments[0].scrollIntoView(true);",a1);
+	  
+	  
